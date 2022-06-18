@@ -12,7 +12,7 @@ const GoSignUpPage = () => {
   return (
     <div>
       <NavBarSignUpBtn>
-        <Link to="signup" style={{ textDecoration: "none" }}>
+        <Link to="/signup" style={{ textDecoration: "none" }}>
           Sign up
         </Link>{" "}
       </NavBarSignUpBtn>

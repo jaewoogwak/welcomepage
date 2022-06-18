@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import CancelBtn from "./Form/CancelBtn";
@@ -16,7 +17,6 @@ const LoginWrapper = styled.article`
 `;
 const LoginTitle = styled.h1`
   text-align: center;
-  padding-bottom: 30px;
   font-size: 50px;
   font-weight: 900;
   @media screen and (max-width: 786px) {
@@ -49,8 +49,8 @@ const getCookie = (name) => {
 const Login = () => {
   const [id, setID] = useState("");
   const [pw, setPW] = useState("");
-  //const [failCount, setFailCount] = useState(0);
   const failCount = useRef(0);
+  const imgRef = useRef();
   console.log("falicount ", failCount.current);
   const onLoginBtnClick = () => {
     if (getCookie("blocked")) {
@@ -108,8 +108,19 @@ const Login = () => {
     //setFailCount(fc);
     failCount.current = fc;
   };
+  const getImageData = () => {
+    axios
+      .get("https://api.thecatapi.com/v1/images/search?size=full")
+      .then(async (response) => {
+        const dataURL = response.data[0].url;
+        console.log(`GET users`, dataURL);
+        imgRef.current.src = dataURL;
+      })
+      .catch((error) => console.error(error));
+  };
   useEffect(() => {
     getFailCountAtLocalStorage();
+    getImageData();
   }, []);
   return (
     <div>
@@ -119,13 +130,13 @@ const Login = () => {
         <LoginWrapper>
           <LoginTitle>Login</LoginTitle>
           <LoginInput>
-            {/* <img
+            <img
+              ref={imgRef}
               alt="cat"
-              class="image"
               width="100"
               height="100"
-              src="https://scontent-ssn1-1.xx.fbcdn.net/v/t1.6435-9/109764302_3289428621149720_6353557589794353911_n.png?_nc_cat=102&ccb=1-6&_nc_sid=973b4a&_nc_ohc=Hhr5QaPhHtoAX9D1yta&_nc_ht=scontent-ssn1-1.xx&oh=00_AT_jtV4AaS4YwvPXL4uFDq4YNmpqo8sucbiYsrTaeKaeWQ&oe=62A77819"
-            /> */}
+              src="https://blog.kakaocdn.net/dn/bVZmTE/btqBqpJPjfc/bVAXmVZcCH1ffZT96KkT3k/img.jpg"
+            />
             <LoginForm id={id} pw={pw} onChange={onChange} />
             <LoginBtn onClick={onLoginBtnClick} />
             <CancelBtn />
