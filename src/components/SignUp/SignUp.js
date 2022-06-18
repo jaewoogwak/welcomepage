@@ -1,54 +1,15 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import NavBar from "../NavBar/NavBar";
+import SignUpForm from "./SignUpForm";
 
 const WrapperHome = styled.div`
   display: grid;
   grid-template-rows: 100px 5fr;
 `;
 
-const NavBar = styled.nav`
-  border-bottom: 1px solid gray;
-  display: grid;
-  grid-template-columns: 6fr 1fr 1fr;
-  text-align: center;
-  align-items: center;
-  box-shadow: 5px 5px 9px;
-  @media screen and (max-width: 786px) {
-    border-bottom: 1px solid gray;
-    display: grid;
-    grid-template-columns: 8fr 1fr;
-    text-align: start;
-    box-shadow: 5px 5px 9px;
-  }
-`;
-
-const NavBarLogo = styled.div`
-  text-align: start;
-  padding-left: 40px;
-  font-size: 24px;
-  @media screen and (max-width: 786px) {
-    font-size: 18px;
-  }
-`;
-
-const NavBarSignIn = styled.div`
-  display: inline;
-  text-decoration: none;
-  font-size: 22px;
-  color: black;
-  font-weight: 400;
-`;
-const NavBarSignUp = styled.div`
-  display: inline;
-  text-decoration: none;
-  font-size: 22px;
-  color: black;
-  font-weight: 400;
-`;
-const NavBarDropdown = styled.li`
-  display: none;
-`;
 const SignUpWrapper = styled.div`
   padding: 40px;
   justify-content: center;
@@ -69,114 +30,6 @@ const SignUpInput = styled.div`
   gap: 10px;
   @media screen and (max-width: 786px) {
     font-size: 34px;
-  }
-`;
-const SignUpInputId = styled.input`
-  width: 300px;
-  height: 35px;
-  padding-left: 10px;
-  border-radius: 10px;
-  border: 0.5px solid gray;
-  @media screen and (max-width: 786px) {
-    width: 200px;
-    height: 30px;
-  }
-`;
-const SignUpInputPw = styled.input`
-  width: 300px;
-  height: 35px;
-  padding-left: 10px;
-  border-radius: 10px;
-  border: 0.5px solid gray;
-  @media screen and (max-width: 786px) {
-    width: 200px;
-    height: 30px;
-  }
-`;
-const SignUpInputPwRepeat = styled.input`
-  width: 300px;
-  height: 35px;
-  padding-left: 10px;
-  border-radius: 10px;
-  border: 0.5px solid gray;
-  @media screen and (max-width: 786px) {
-    width: 200px;
-    height: 30px;
-  }
-`;
-const SignUpInputStudentNumber = styled.input`
-  width: 300px;
-  height: 35px;
-  padding-left: 10px;
-  border-radius: 10px;
-  border: 0.5px solid gray;
-  @media screen and (max-width: 786px) {
-    width: 200px;
-    height: 30px;
-  }
-`;
-const SignUpInputPhoneNumber = styled.input`
-  width: 300px;
-  height: 35px;
-  padding-left: 10px;
-  border-radius: 10px;
-  border: 0.5px solid gray;
-  @media screen and (max-width: 786px) {
-    width: 200px;
-    height: 30px;
-  }
-`;
-const SignUpInputMajor = styled.input`
-  width: 300px;
-  height: 35px;
-  padding-left: 10px;
-  border-radius: 10px;
-  border: 0.5px solid gray;
-  @media screen and (max-width: 786px) {
-    width: 200px;
-    height: 30px;
-  }
-`;
-const CheckIdIsEqual = styled.div`
-  width: 300px;
-  padding-left: 15px;
-  text-align: left;
-  font-size: 12px;
-  color: red;
-  @media screen and (max-width: 786px) {
-    width: 200px;
-    padding-left: 15px;
-    text-align: left;
-    font-size: 12px;
-    color: red;
-  }
-`;
-const CheckPwIsEqual = styled.div`
-  width: 300px;
-  padding-left: 15px;
-  text-align: left;
-  font-size: 12px;
-  color: red;
-  @media screen and (max-width: 786px) {
-    width: 200px;
-    padding-left: 15px;
-    text-align: left;
-    font-size: 12px;
-    color: red;
-  }
-`;
-const CheckPhoneNumberIsValidFormat = styled.div`
-  width: 300px;
-  padding-left: 15px;
-  text-align: left;
-  font-size: 12px;
-  color: red;
-  @media screen and (max-width: 786px) {
-    width: 200px;
-    padding-left: 15px;
-    text-align: left;
-    font-size: 12px;
-    color: red;
   }
 `;
 const RegisterBtn = styled.button`
@@ -209,71 +62,94 @@ const CancelBtn = styled.button`
   }
 `;
 const SignUp = () => {
+  console.log("Re-render!");
+  const imgRef = useRef();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  //const [isEmailform, setIsEmailForm] = useState(false);
+  const isEmailform = useRef(false);
+  const idCheck = useRef();
+  console.log("isEmailForm", isEmailform);
+  const EmailFormatChecker = (v) => {
+    let value = v;
+    var regEmail =
+      /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+    console.log("valiue", value);
+    if (regEmail.test(value) === true) {
+      console.log("true!!!!!");
+      //setIsEmailForm(true);
+      isEmailform.current = true;
+    } else {
+      //setIsEmailForm(false);
+      isEmailform.current = false;
+    }
+
+    // 정규식 공부하면 넣기
+    if (isEmailform) {
+      idCheck.current.innerHTML = "<strong style='color:blue'>좋아요!</strong>";
+      //setIsEmailForm(true);
+      isEmailform.current = true;
+    } else if (value == "") {
+      idCheck.current.innerHTML = "";
+      // setIsEmailForm(false);
+      isEmailform.current = false;
+    } else {
+      idCheck.current.innerHTML =
+        "<strong>이메일 형식에 맞게 입력해주세요</strong>";
+      // setIsEmailForm(false);
+      isEmailform.current = false;
+    }
+  };
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    console.log("onChange", name, value);
+
+    if (name == "email") {
+      setEmail(value);
+      //EmailFormatChecker(value);
+      console.log(name, value);
+    } else if (name == "password") {
+      setPassword(value);
+      console.log(name, value);
+    }
+  };
+
+  const getImageData = () => {
+    axios
+      .get("https://api.thecatapi.com/v1/images/search?size=full")
+      .then(async (response) => {
+        const dataURL = response.data[0].url;
+        console.log(`GET users`, dataURL);
+        imgRef.current.src = dataURL;
+      })
+      .catch((error) => console.error(error));
+  };
+  useEffect(() => {
+    getImageData();
+  }, []);
   return (
     <div>
       {" "}
       <WrapperHome>
-        <NavBar>
-          <NavBarLogo>
-            <strong class="logo">jaewooworld</strong>
-          </NavBarLogo>
-          <NavBarSignIn>
-            {" "}
-            <Link to="/" style={{ textDecoration: "none" }}>
-              Login
-            </Link>
-          </NavBarSignIn>
-          <NavBarSignUp>
-            <Link to="signup" style={{ textDecoration: "none" }}>
-              Sign up
-            </Link>{" "}
-          </NavBarSignUp>
-          <NavBarDropdown></NavBarDropdown>
-        </NavBar>
+        <NavBar></NavBar>
 
         <SignUpWrapper>
           <SignUpTitle>Sign up</SignUpTitle>
 
           <SignUpInput>
             <img
+              ref={imgRef}
               alt="cat"
               width="100"
               height="100"
-              src="https://scontent-ssn1-1.xx.fbcdn.net/v/t1.6435-9/109764302_3289428621149720_6353557589794353911_n.png?_nc_cat=102&ccb=1-6&_nc_sid=973b4a&_nc_ohc=Hhr5QaPhHtoAX9D1yta&_nc_ht=scontent-ssn1-1.xx&oh=00_AT_jtV4AaS4YwvPXL4uFDq4YNmpqo8sucbiYsrTaeKaeWQ&oe=62A77819"
+              src="https://blog.kakaocdn.net/dn/bVZmTE/btqBqpJPjfc/bVAXmVZcCH1ffZT96KkT3k/img.jpg"
             />
-            <SignUpInputId
-              type="email"
-              placeholder="아이디"
-              oninput="EmailFormatChecker(this)"
-              autofocus
-              required
+            <SignUpForm
+              idCheck={idCheck}
+              email={email}
+              password={password}
+              onChange={onChange}
             />
-            <CheckIdIsEqual></CheckIdIsEqual>
-            <SignUpInputPw
-              type="password"
-              placeholder="비밀번호"
-              oninput="passwordChecker(this)"
-              required
-            />
-            <SignUpInputPwRepeat
-              type="password"
-              placeholder="비밀번호 확인"
-              oninput="passwordChecker(this)"
-              required
-            />
-            <CheckPwIsEqual></CheckPwIsEqual>
-            <SignUpInputStudentNumber
-              type="number"
-              oninput="handleOnInput(this, 10)"
-              placeholder="학번"
-              required
-            />
-            <SignUpInputMajor placeholder="전공" readonly />
-            <SignUpInputPhoneNumber
-              placeholder="전화번호"
-              oninput="autoHypen(this)"
-            />
-            <CheckPhoneNumberIsValidFormat></CheckPhoneNumberIsValidFormat>
             <RegisterBtn>Register</RegisterBtn>
             <CancelBtn>cancel</CancelBtn>
           </SignUpInput>

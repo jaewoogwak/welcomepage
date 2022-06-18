@@ -1,16 +1,22 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import NavBar from "../NavBar/NavBar";
 import CancelBtn from "./Form/CancelBtn";
 import LoginBtn from "./Form/LoginBtn";
 import LoginForm from "./Form/LoginForm";
-import NavBar from "./NavBar/NavBar";
+
+/* 로그인 버튼 클릭 */
+const ID = "jaewoo";
+const PW = "123456";
+/* cookie expire time */
+const expireTime_72h = 60 * 60 * 24 * 3;
+const expireTime_1h = 60 * 60;
 
 const Wrapper = styled.div`
   display: grid;
   grid-template-rows: 100px 5fr;
 `;
-
 const LoginWrapper = styled.article`
   padding: 40px;
   justify-content: center;
@@ -30,12 +36,6 @@ const LoginInput = styled.div`
   gap: 10px;
 `;
 
-/* 로그인 버튼 클릭 */
-const ID = "jaewoo";
-const PW = "123456";
-/* cookie expire time */
-const expireTime_72h = 60 * 60 * 24 * 3;
-const expireTime_1h = 60 * 60;
 const getCookie = (name) => {
   let matches = document.cookie.match(
     new RegExp(
@@ -47,11 +47,11 @@ const getCookie = (name) => {
   return matches ? decodeURIComponent(matches[1]) : undefined;
 };
 const Login = () => {
+  console.log("Re-Render");
   const [id, setID] = useState("");
   const [pw, setPW] = useState("");
   const failCount = useRef(0);
   const imgRef = useRef();
-  console.log("falicount ", failCount.current);
   const onLoginBtnClick = () => {
     if (getCookie("blocked")) {
       // 로그인 실패 5회 이상이면 로그인 차단.
@@ -86,7 +86,6 @@ const Login = () => {
       alert("아이디 또는 비밀번호가 틀렸습니다.");
       //setFailCount((prev) => prev + 1);
       failCount.current += 1;
-      console.log("failcount.current", failCount.current);
       localStorage.setItem("count", failCount.current);
     } else {
       alert("로그인");
@@ -97,15 +96,12 @@ const Login = () => {
     const { name, value } = e.target;
     if (name == "id") {
       setID(value);
-      console.log(name, value);
     } else {
       setPW(value);
-      console.log(name, value);
     }
   };
   const getFailCountAtLocalStorage = () => {
     let fc = Number(localStorage.getItem("count"));
-    //setFailCount(fc);
     failCount.current = fc;
   };
   const getImageData = () => {
