@@ -71,6 +71,7 @@ const SignUp = () => {
   const idCheck = useRef();
   console.log("isEmailForm", isEmailform);
   const EmailFormatChecker = (v) => {
+    console.log("EmailFormatChecker");
     let value = v;
     var regEmail =
       /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
@@ -80,20 +81,27 @@ const SignUp = () => {
       //setIsEmailForm(true);
       isEmailform.current = true;
     } else {
+      console.log("false!!!");
       //setIsEmailForm(false);
       isEmailform.current = false;
+      console.log("isEmailform.current", isEmailform.current);
     }
 
     // 정규식 공부하면 넣기
-    if (isEmailform) {
+    if (isEmailform.current) {
+      console.log("isEmailForm = true");
       idCheck.current.innerHTML = "<strong style='color:blue'>좋아요!</strong>";
       //setIsEmailForm(true);
       isEmailform.current = true;
     } else if (value == "") {
+      console.log("isEmailForm = ");
+
       idCheck.current.innerHTML = "";
       // setIsEmailForm(false);
       isEmailform.current = false;
     } else {
+      console.log("isEmailForm = false");
+
       idCheck.current.innerHTML =
         "<strong>이메일 형식에 맞게 입력해주세요</strong>";
       // setIsEmailForm(false);
@@ -106,7 +114,7 @@ const SignUp = () => {
 
     if (name == "email") {
       setEmail(value);
-      //EmailFormatChecker(value);
+      EmailFormatChecker(value);
       console.log(name, value);
     } else if (name == "password") {
       setPassword(value);

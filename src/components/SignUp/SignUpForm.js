@@ -118,11 +118,11 @@ const SignUpForm = (props) => {
         name="email"
         type="email"
         placeholder="아이디"
-        onInput={props.onChange}
+        onChange={props.onChange}
         autoFocus
         required
       />
-      <CheckIdIsEqual ref={props.idCheck}></CheckIdIsEqual>
+      <CheckIdIsEqual ref={props.idCheck}>test</CheckIdIsEqual>
       <SignUpInputPw
         name="password"
         type="password"
