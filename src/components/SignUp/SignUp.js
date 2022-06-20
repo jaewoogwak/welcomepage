@@ -191,6 +191,10 @@ const SignUp = () => {
       .catch((error) => console.error(error));
   };
 
+  // 회원가입(Register) 버튼 클릭
+  const register = () => {
+    alert("회원가입");
+  };
   useEffect(() => {
     getImageData();
   }, []);
@@ -220,7 +224,7 @@ const SignUp = () => {
               phoneNumber={phoneNumber}
               onChange={onChange}
             />
-            <RegisterBtn>Register</RegisterBtn>
+            <RegisterBtn onClick={register}>Register</RegisterBtn>
             <CancelBtn>Cancel</CancelBtn>
           </SignUpInput>
         </SignUpWrapper>
