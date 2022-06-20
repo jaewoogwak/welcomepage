@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
+import CancelBtn from "../Login/Form/CancelBtn";
 import NavBar from "../NavBar/NavBar";
 import SignUpForm from "./SignUpForm";
 
@@ -48,19 +48,7 @@ const RegisterBtn = styled.button`
     height: 30px;
   }
 `;
-const CancelBtn = styled.button`
-  width: 300px;
-  height: 40px;
-  border-radius: 0px 0px 20px 20px;
-  background-color: #e8dcf8;
-  color: #4c00b8;
-  border: 0px;
-  @media screen and (max-width: 786px) {
-    font-size: 16px;
-    width: 200px;
-    height: 30px;
-  }
-`;
+
 const SignUp = () => {
   console.log("Re-render!");
   const imgRef = useRef();
@@ -202,12 +190,12 @@ const SignUp = () => {
       })
       .catch((error) => console.error(error));
   };
+
   useEffect(() => {
     getImageData();
   }, []);
   return (
     <div>
-      {" "}
       <WrapperHome>
         <NavBar></NavBar>
 
@@ -233,7 +221,7 @@ const SignUp = () => {
               onChange={onChange}
             />
             <RegisterBtn>Register</RegisterBtn>
-            <CancelBtn>cancel</CancelBtn>
+            <CancelBtn>Cancel</CancelBtn>
           </SignUpInput>
         </SignUpWrapper>
       </WrapperHome>
