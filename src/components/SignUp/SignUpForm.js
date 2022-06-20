@@ -148,8 +148,11 @@ const SignUpForm = (props) => {
       />
       <SignUpInputMajor value={props.major} placeholder="전공" readOnly />
       <SignUpInputPhoneNumber
+        name="phoneNumber"
+        type="tel"
+        value={props.phoneNumber}
         placeholder="전화번호"
-        oninput="autoHypen(this)"
+        onChange={props.onChange}
       />
       <CheckPhoneNumberIsValidFormat></CheckPhoneNumberIsValidFormat>
     </>

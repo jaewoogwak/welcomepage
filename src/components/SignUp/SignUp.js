@@ -69,6 +69,7 @@ const SignUp = () => {
   const [passwordRepeat, setPasswordRepeat] = useState("");
   const [studentNumber, setStudentNumber] = useState("");
   const [major, setMajor] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const isEmailform = useRef(false);
   const idCheck = useRef();
   const pwCheck = useRef();
@@ -101,7 +102,6 @@ const SignUp = () => {
   const onChange = (e) => {
     const { name, value } = e.target;
     console.log("onChange", name, value);
-
     if (name === "email") {
       setEmail(value);
       EmailFormatChecker(value);
@@ -117,6 +117,9 @@ const SignUp = () => {
     } else if (name == "studentNumber") {
       setStudentNumber(value);
       handleOnInput(value);
+    } else if (name == "phoneNumber") {
+      setPhoneNumber(value);
+      autoHypen(value);
     }
   };
 
@@ -131,9 +134,8 @@ const SignUp = () => {
       passwordCheck.innerHTML = "<strong>비밀번호가 일치하지 않습니다</strong>";
     }
   };
-  /* 학번 자릿수 제한 */
-  /* 학번에 따라 전공 자동 입력 */
-
+  // 학번 자릿수 제한
+  // 학번에 따라 전공 자동 입력
   const handleOnInput = (stNumber, maxlength = 10) => {
     if (stNumber.length >= maxlength) {
       setStudentNumber(stNumber.slice(0, maxlength));
@@ -169,6 +171,27 @@ const SignUp = () => {
       setMajor("");
     }
   };
+  // 전화번호 자동 하이픈 추가
+  const autoHypen = (v) => {
+    let value = v.replace(/\D+/g, "");
+    const maxLength = 11;
+    let result = "";
+    for (let i = 0; i < value.length && i < maxLength; i++) {
+      switch (i) {
+        case 3:
+          result += "-";
+          break;
+        case 7:
+          result += "-";
+          break;
+        default:
+          break;
+      }
+      result += value[i];
+    }
+    setPhoneNumber(result);
+  };
+
   const getImageData = () => {
     axios
       .get("https://api.thecatapi.com/v1/images/search?size=full")
@@ -206,6 +229,7 @@ const SignUp = () => {
               password={password}
               studentNumber={studentNumber}
               major={major}
+              phoneNumber={phoneNumber}
               onChange={onChange}
             />
             <RegisterBtn>Register</RegisterBtn>
