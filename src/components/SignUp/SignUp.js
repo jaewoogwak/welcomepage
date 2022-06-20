@@ -66,62 +66,109 @@ const SignUp = () => {
   const imgRef = useRef();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  //const [isEmailform, setIsEmailForm] = useState(false);
+  const [passwordRepeat, setPasswordRepeat] = useState("");
+  const [studentNumber, setStudentNumber] = useState("");
+  const [major, setMajor] = useState("");
   const isEmailform = useRef(false);
   const idCheck = useRef();
-  console.log("isEmailForm", isEmailform);
+  const pwCheck = useRef();
+
+  // 이메일 형식 체커
   const EmailFormatChecker = (v) => {
-    console.log("EmailFormatChecker");
     let value = v;
     var regEmail =
       /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
-    console.log("valiue", value);
     if (regEmail.test(value) === true) {
-      console.log("true!!!!!");
-      //setIsEmailForm(true);
       isEmailform.current = true;
     } else {
-      console.log("false!!!");
-      //setIsEmailForm(false);
       isEmailform.current = false;
-      console.log("isEmailform.current", isEmailform.current);
     }
 
     // 정규식 공부하면 넣기
     if (isEmailform.current) {
-      console.log("isEmailForm = true");
       idCheck.current.innerHTML = "<strong style='color:blue'>좋아요!</strong>";
-      //setIsEmailForm(true);
       isEmailform.current = true;
-    } else if (value == "") {
-      console.log("isEmailForm = ");
-
+    } else if (value === "") {
       idCheck.current.innerHTML = "";
-      // setIsEmailForm(false);
       isEmailform.current = false;
     } else {
-      console.log("isEmailForm = false");
-
       idCheck.current.innerHTML =
         "<strong>이메일 형식에 맞게 입력해주세요</strong>";
-      // setIsEmailForm(false);
       isEmailform.current = false;
     }
   };
+
   const onChange = (e) => {
     const { name, value } = e.target;
     console.log("onChange", name, value);
 
-    if (name == "email") {
+    if (name === "email") {
       setEmail(value);
       EmailFormatChecker(value);
       console.log(name, value);
-    } else if (name == "password") {
+    } else if (name === "password") {
       setPassword(value);
+      passwordChecker();
       console.log(name, value);
+    } else if (name == "passwordRepeat") {
+      setPasswordRepeat(value);
+      passwordChecker();
+      console.log(name, value);
+    } else if (name == "studentNumber") {
+      setStudentNumber(value);
+      handleOnInput(value);
     }
   };
 
+  // 비밀번호 일치 체커
+  const passwordChecker = () => {
+    const passwordCheck = pwCheck.current;
+    if (password == "" && passwordRepeat == "") {
+      passwordCheck.innerHTML = "";
+    } else if (password == passwordRepeat) {
+      passwordCheck.innerHTML = "<strong style='color:blue'>좋아요!</strong>";
+    } else {
+      passwordCheck.innerHTML = "<strong>비밀번호가 일치하지 않습니다</strong>";
+    }
+  };
+  /* 학번 자릿수 제한 */
+  /* 학번에 따라 전공 자동 입력 */
+
+  const handleOnInput = (stNumber, maxlength = 10) => {
+    if (stNumber.length >= maxlength) {
+      setStudentNumber(stNumber.slice(0, maxlength));
+    }
+    if (stNumber.length >= 6) {
+      switch (stNumber.slice(5, 7)) {
+        case "20":
+          setMajor("기계공학부");
+          break;
+        case "36":
+          setMajor("컴퓨터공학부");
+          break;
+        case "61":
+          setMajor("전자정보통신공학부");
+          break;
+        case "51":
+          setMajor("디자인공학부");
+          break;
+        case "72":
+          setMajor("건축공학부");
+          break;
+        case "74":
+          setMajor("에너지신소재화학공학부");
+          break;
+        case "80":
+          setMajor("산업경영학부");
+          break;
+        default:
+          setMajor("");
+          break;
+      }
+    } else {
+      setMajor("");
+    }
+  };
   const getImageData = () => {
     axios
       .get("https://api.thecatapi.com/v1/images/search?size=full")
@@ -154,8 +201,11 @@ const SignUp = () => {
             />
             <SignUpForm
               idCheck={idCheck}
+              pwCheck={pwCheck}
               email={email}
               password={password}
+              studentNumber={studentNumber}
+              major={major}
               onChange={onChange}
             />
             <RegisterBtn>Register</RegisterBtn>

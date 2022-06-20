@@ -122,7 +122,7 @@ const SignUpForm = (props) => {
         autoFocus
         required
       />
-      <CheckIdIsEqual ref={props.idCheck}>test</CheckIdIsEqual>
+      <CheckIdIsEqual ref={props.idCheck}></CheckIdIsEqual>
       <SignUpInputPw
         name="password"
         type="password"
@@ -131,19 +131,22 @@ const SignUpForm = (props) => {
         required
       />
       <SignUpInputPwRepeat
+        name="passwordRepeat"
         type="password"
         placeholder="비밀번호 확인"
-        oninput="passwordChecker(this)"
+        onChange={props.onChange}
         required
       />
-      <CheckPwIsEqual></CheckPwIsEqual>
+      <CheckPwIsEqual ref={props.pwCheck}></CheckPwIsEqual>
       <SignUpInputStudentNumber
+        name="studentNumber"
         type="number"
-        oninput="handleOnInput(this, 10)"
         placeholder="학번"
+        value={props.studentNumber}
+        onChange={props.onChange}
         required
       />
-      <SignUpInputMajor placeholder="전공" readonly />
+      <SignUpInputMajor value={props.major} placeholder="전공" readOnly />
       <SignUpInputPhoneNumber
         placeholder="전화번호"
         oninput="autoHypen(this)"
