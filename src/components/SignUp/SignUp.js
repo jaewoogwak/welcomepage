@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import CancelBtn from "../Login/Form/CancelBtn";
 import NavBar from "../NavBar/NavBar";
@@ -87,7 +87,7 @@ const SignUp = () => {
     }
   };
 
-  const onChange = (e) => {
+  const onChange = useCallback((e) => {
     const { name, value } = e.target;
     console.log("onChange", name, value);
     if (name === "email") {
@@ -109,7 +109,7 @@ const SignUp = () => {
       setPhoneNumber(value);
       autoHypen(value);
     }
-  };
+  }, []);
 
   // 비밀번호 일치 체커
   const passwordChecker = () => {

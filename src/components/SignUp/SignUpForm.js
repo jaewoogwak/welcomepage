@@ -1,7 +1,4 @@
-import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-
 const SignUpInputId = styled.input`
   width: 300px;
   height: 35px;
@@ -13,7 +10,22 @@ const SignUpInputId = styled.input`
     height: 30px;
   }
 `;
-const SignUpInputPw = styled.input`
+
+const CheckIdIsEqual = styled.div`
+  width: 300px;
+  padding-left: 15px;
+  text-align: left;
+  font-size: 12px;
+  color: red;
+  @media screen and (max-width: 786px) {
+    width: 200px;
+    padding-left: 15px;
+    text-align: left;
+    font-size: 12px;
+    color: red;
+  }
+`;
+const SignUpInputPassword = styled.input`
   width: 300px;
   height: 35px;
   padding-left: 10px;
@@ -33,6 +45,20 @@ const SignUpInputPwRepeat = styled.input`
   @media screen and (max-width: 786px) {
     width: 200px;
     height: 30px;
+  }
+`;
+const CheckPwIsEqual = styled.div`
+  width: 300px;
+  padding-left: 15px;
+  text-align: left;
+  font-size: 12px;
+  color: red;
+  @media screen and (max-width: 786px) {
+    width: 200px;
+    padding-left: 15px;
+    text-align: left;
+    font-size: 12px;
+    color: red;
   }
 `;
 const SignUpInputStudentNumber = styled.input`
@@ -68,34 +94,7 @@ const SignUpInputMajor = styled.input`
     height: 30px;
   }
 `;
-const CheckIdIsEqual = styled.div`
-  width: 300px;
-  padding-left: 15px;
-  text-align: left;
-  font-size: 12px;
-  color: red;
-  @media screen and (max-width: 786px) {
-    width: 200px;
-    padding-left: 15px;
-    text-align: left;
-    font-size: 12px;
-    color: red;
-  }
-`;
-const CheckPwIsEqual = styled.div`
-  width: 300px;
-  padding-left: 15px;
-  text-align: left;
-  font-size: 12px;
-  color: red;
-  @media screen and (max-width: 786px) {
-    width: 200px;
-    padding-left: 15px;
-    text-align: left;
-    font-size: 12px;
-    color: red;
-  }
-`;
+
 const CheckPhoneNumberIsValidFormat = styled.div`
   width: 300px;
   padding-left: 15px;
@@ -110,51 +109,57 @@ const CheckPhoneNumberIsValidFormat = styled.div`
     color: red;
   }
 `;
-const SignUpForm = (props) => {
+const SignUpForm = ({
+  onChange,
+  idCheck,
+  pwCheck,
+  studentNumber,
+  major,
+  phoneNumber,
+}) => {
   return (
     <>
-      {" "}
       <SignUpInputId
+        onChange={onChange}
         name="email"
         type="email"
         placeholder="아이디"
-        onChange={props.onChange}
         autoFocus
         required
       />
-      <CheckIdIsEqual ref={props.idCheck}></CheckIdIsEqual>
-      <SignUpInputPw
+      <CheckIdIsEqual ref={idCheck} />
+      <SignUpInputPassword
         name="password"
         type="password"
         placeholder="비밀번호"
-        onChange={props.onChange}
+        onChange={onChange}
         required
       />
       <SignUpInputPwRepeat
         name="passwordRepeat"
         type="password"
         placeholder="비밀번호 확인"
-        onChange={props.onChange}
+        onChange={onChange}
         required
       />
-      <CheckPwIsEqual ref={props.pwCheck}></CheckPwIsEqual>
+      <CheckPwIsEqual ref={pwCheck} />
       <SignUpInputStudentNumber
         name="studentNumber"
         type="number"
         placeholder="학번"
-        value={props.studentNumber}
-        onChange={props.onChange}
+        value={studentNumber}
+        onChange={onChange}
         required
       />
-      <SignUpInputMajor value={props.major} placeholder="전공" readOnly />
+      <SignUpInputMajor value={major} placeholder="전공" readOnly />
       <SignUpInputPhoneNumber
         name="phoneNumber"
         type="tel"
-        value={props.phoneNumber}
+        value={phoneNumber}
         placeholder="전화번호"
-        onChange={props.onChange}
+        onChange={onChange}
       />
-      <CheckPhoneNumberIsValidFormat></CheckPhoneNumberIsValidFormat>
+      <CheckPhoneNumberIsValidFormat />
     </>
   );
 };
