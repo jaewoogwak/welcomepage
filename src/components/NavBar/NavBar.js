@@ -13,7 +13,7 @@ const NavBarWrapper = styled.nav`
   @media screen and (max-width: 786px) {
     border-bottom: 1px solid gray;
     display: grid;
-    grid-template-columns: 8fr 1fr;
+    grid-template-columns: 6fr 1fr 1fr;
     text-align: start;
     box-shadow: 5px 5px 9px;
   }
@@ -22,6 +22,9 @@ const NavBarWrapper = styled.nav`
 const Logo = styled.strong`
   text-align: start;
   font-size: 24px;
+  @media screen and (max-width: 786px) {
+    font-size: 18px;
+  }
 `;
 const NavBarLogo = styled.div`
   text-align: start;
