@@ -47,7 +47,6 @@ const getCookie = (name) => {
   return matches ? decodeURIComponent(matches[1]) : undefined;
 };
 const Login = () => {
-  console.log("Re-Render");
   const [id, setID] = useState("");
   const [pw, setPW] = useState("");
   const failCount = useRef(0);
@@ -109,7 +108,6 @@ const Login = () => {
       .get("https://api.thecatapi.com/v1/images/search?size=full")
       .then(async (response) => {
         const dataURL = response.data[0].url;
-        console.log(`GET users`, dataURL);
         imgRef.current.src = dataURL;
       })
       .catch((error) => console.error(error));

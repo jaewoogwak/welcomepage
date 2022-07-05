@@ -50,7 +50,6 @@ const RegisterBtn = styled.button`
 `;
 
 const SignUp = () => {
-  console.log("Re-render!");
   const imgRef = useRef();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -89,19 +88,15 @@ const SignUp = () => {
 
   const onChange = useCallback((e) => {
     const { name, value } = e.target;
-    console.log("onChange", name, value);
     if (name === "email") {
       setEmail(value);
       EmailFormatChecker(value);
-      console.log(name, value);
     } else if (name === "password") {
       setPassword(value);
       passwordChecker();
-      console.log(name, value);
     } else if (name == "passwordRepeat") {
       setPasswordRepeat(value);
       passwordChecker();
-      console.log(name, value);
     } else if (name == "studentNumber") {
       setStudentNumber(value);
       handleOnInput(value);
@@ -114,9 +109,9 @@ const SignUp = () => {
   // 비밀번호 일치 체커
   const passwordChecker = () => {
     const passwordCheck = pwCheck.current;
-    if (password == "" && passwordRepeat == "") {
+    if (password === "" && passwordRepeat === "") {
       passwordCheck.innerHTML = "";
-    } else if (password == passwordRepeat) {
+    } else if (password === passwordRepeat) {
       passwordCheck.innerHTML = "<strong style='color:blue'>좋아요!</strong>";
     } else {
       passwordCheck.innerHTML = "<strong>비밀번호가 일치하지 않습니다</strong>";
@@ -185,7 +180,6 @@ const SignUp = () => {
       .get("https://api.thecatapi.com/v1/images/search?size=full")
       .then(async (response) => {
         const dataURL = response.data[0].url;
-        console.log(`GET users`, dataURL);
         imgRef.current.src = dataURL;
       })
       .catch((error) => console.error(error));
