@@ -2,6 +2,36 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
+const NavBar = () => {
+  const buttons = ["Log in", "Sign up"];
+  return (
+    <div>
+      <NavBarWrapper>
+        <NavBarLogo>
+          <Logo>jaewooworld</Logo>
+        </NavBarLogo>
+        {buttons.map((button) => (
+          <NavBarBtn key={button.toString()}>
+            <NavLink
+              to={button === "Log in" ? "/" : "/signup"}
+              style={({ isActive }) => {
+                return {
+                  textDecoration: "none",
+                  color: isActive ? "red" : "black",
+                };
+              }}
+            >
+              {button}
+            </NavLink>
+          </NavBarBtn>
+        ))}
+      </NavBarWrapper>
+    </div>
+  );
+};
+
+export default NavBar;
+
 const NavBarWrapper = styled.nav`
   border-bottom: 1px solid gray;
   display: grid;
@@ -33,37 +63,6 @@ const NavBarLogo = styled.div`
     font-size: 18px;
   }
 `;
-
-const NavBar = () => {
-  const buttons = ["Log in", "Sign up"];
-  return (
-    <div>
-      <NavBarWrapper>
-        <NavBarLogo>
-          <Logo>jaewooworld</Logo>
-        </NavBarLogo>
-        {buttons.map((button) => (
-          <NavBarBtn key={button.toString()}>
-            <NavLink
-              to={button === "Log in" ? "/" : "/signup"}
-              style={({ isActive }) => {
-                return {
-                  textDecoration: "none",
-                  color: isActive ? "red" : "black",
-                };
-              }}
-            >
-              {button}
-            </NavLink>
-          </NavBarBtn>
-        ))}
-      </NavBarWrapper>
-    </div>
-  );
-};
-
-export default NavBar;
-
 const NavBarBtn = styled.div`
   display: inline;
   text-decoration: none;
