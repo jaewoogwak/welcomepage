@@ -1,4 +1,59 @@
 import styled from "styled-components";
+
+const SignUpForm = ({
+  onChange,
+  idCheck,
+  pwCheck,
+  studentNumber,
+  major,
+  phoneNumber,
+}) => {
+  return (
+    <>
+      <SignUpInputId
+        onChange={onChange}
+        name="email"
+        type="email"
+        placeholder="아이디"
+        autoFocus
+        required
+      />
+      <CheckIdIsEqual ref={idCheck} />
+      <SignUpInputPassword
+        name="password"
+        type="password"
+        placeholder="비밀번호"
+        onChange={onChange}
+        required
+      />
+      <SignUpInputPwRepeat
+        name="passwordRepeat"
+        type="password"
+        placeholder="비밀번호 확인"
+        onChange={onChange}
+        required
+      />
+      <CheckPwIsEqual ref={pwCheck} />
+      <SignUpInputStudentNumber
+        name="studentNumber"
+        type="number"
+        placeholder="학번"
+        value={studentNumber}
+        onChange={onChange}
+        required
+      />
+      <SignUpInputMajor value={major} placeholder="전공" readOnly />
+      <SignUpInputPhoneNumber
+        name="phoneNumber"
+        type="tel"
+        value={phoneNumber}
+        placeholder="전화번호"
+        onChange={onChange}
+      />
+      <CheckPhoneNumberIsValidFormat />
+    </>
+  );
+};
 const SignUpInputId = styled.input`
   width: 300px;
   height: 35px;
@@ -109,59 +164,4 @@ const CheckPhoneNumberIsValidFormat = styled.div`
     color: red;
   }
 `;
-const SignUpForm = ({
-  onChange,
-  idCheck,
-  pwCheck,
-  studentNumber,
-  major,
-  phoneNumber,
-}) => {
-  return (
-    <>
-      <SignUpInputId
-        onChange={onChange}
-        name="email"
-        type="email"
-        placeholder="아이디"
-        autoFocus
-        required
-      />
-      <CheckIdIsEqual ref={idCheck} />
-      <SignUpInputPassword
-        name="password"
-        type="password"
-        placeholder="비밀번호"
-        onChange={onChange}
-        required
-      />
-      <SignUpInputPwRepeat
-        name="passwordRepeat"
-        type="password"
-        placeholder="비밀번호 확인"
-        onChange={onChange}
-        required
-      />
-      <CheckPwIsEqual ref={pwCheck} />
-      <SignUpInputStudentNumber
-        name="studentNumber"
-        type="number"
-        placeholder="학번"
-        value={studentNumber}
-        onChange={onChange}
-        required
-      />
-      <SignUpInputMajor value={major} placeholder="전공" readOnly />
-      <SignUpInputPhoneNumber
-        name="phoneNumber"
-        type="tel"
-        value={phoneNumber}
-        placeholder="전화번호"
-        onChange={onChange}
-      />
-      <CheckPhoneNumberIsValidFormat />
-    </>
-  );
-};
-
 export default SignUpForm;

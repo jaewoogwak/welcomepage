@@ -1,6 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
+const RegisterBtn = () => {
+  return <RegisterButton></RegisterButton>;
+};
 const RegisterButton = styled.button`
   width: 300px;
   height: 50px;
@@ -17,8 +20,4 @@ const RegisterButton = styled.button`
     height: 30px;
   }
 `;
-const RegisterBtn = () => {
-  return <RegisterButton></RegisterButton>;
-};
-
 export default RegisterBtn;

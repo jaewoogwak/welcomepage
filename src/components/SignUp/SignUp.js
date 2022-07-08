@@ -5,50 +5,6 @@ import CancelBtn from "../Login/Form/CancelBtn";
 import NavBar from "../NavBar/NavBar";
 import SignUpForm from "./SignUpForm";
 
-const WrapperHome = styled.div`
-  display: grid;
-  grid-template-rows: 100px 5fr;
-`;
-
-const SignUpWrapper = styled.div`
-  padding: 40px;
-  justify-content: center;
-`;
-const SignUpTitle = styled.h1`
-  text-align: center;
-  padding-bottom: 30px;
-  font-size: 50px;
-  font-weight: 900;
-  @media screen and (max-width: 786px) {
-    font-size: 34px;
-  }
-`;
-const SignUpInput = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  @media screen and (max-width: 786px) {
-    font-size: 34px;
-  }
-`;
-const RegisterBtn = styled.button`
-  width: 300px;
-  height: 50px;
-  font-size: 20px;
-  font-weight: 900;
-  margin-top: 30px;
-  border-radius: 20px 20px 0px 0px;
-  background-color: #864adb;
-  color: aliceblue;
-  border: 0px;
-  @media screen and (max-width: 786px) {
-    font-size: 16px;
-    width: 200px;
-    height: 30px;
-  }
-`;
-
 const SignUp = () => {
   const imgRef = useRef();
   const [email, setEmail] = useState("");
@@ -226,5 +182,49 @@ const SignUp = () => {
     </div>
   );
 };
+
+const WrapperHome = styled.div`
+  display: grid;
+  grid-template-rows: 100px 5fr;
+`;
+
+const SignUpWrapper = styled.div`
+  padding: 40px;
+  justify-content: center;
+`;
+const SignUpTitle = styled.h1`
+  text-align: center;
+  padding-bottom: 30px;
+  font-size: 50px;
+  font-weight: 900;
+  @media screen and (max-width: 786px) {
+    font-size: 34px;
+  }
+`;
+const SignUpInput = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  @media screen and (max-width: 786px) {
+    font-size: 34px;
+  }
+`;
+const RegisterBtn = styled.button`
+  width: 300px;
+  height: 50px;
+  font-size: 20px;
+  font-weight: 900;
+  margin-top: 30px;
+  border-radius: 20px 20px 0px 0px;
+  background-color: #864adb;
+  color: aliceblue;
+  border: 0px;
+  @media screen and (max-width: 786px) {
+    font-size: 16px;
+    width: 200px;
+    height: 30px;
+  }
+`;
 
 export default SignUp;
