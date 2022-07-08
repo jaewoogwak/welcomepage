@@ -1,6 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
+const CancelBtn = () => {
+  return <CancelButton>Cancel</CancelButton>;
+};
+
 const CancelButton = styled.button`
   width: 300px;
   height: 40px;
@@ -14,8 +18,4 @@ const CancelButton = styled.button`
     height: 30px;
   }
 `;
-const CancelBtn = () => {
-  return <CancelButton>Cancel</CancelButton>;
-};
-
 export default CancelBtn;

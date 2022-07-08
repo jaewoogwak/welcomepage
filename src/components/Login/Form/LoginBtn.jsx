@@ -1,6 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
+const LoginBtn = (props) => {
+  return <LoginButton onClick={props.onClick}>Log In</LoginButton>;
+};
+
 const LoginButton = styled.button`
   width: 300px;
   height: 50px;
@@ -17,9 +21,4 @@ const LoginButton = styled.button`
     height: 30px;
   }
 `;
-
-const LoginBtn = (props) => {
-  return <LoginButton onClick={props.onClick}>Log In</LoginButton>;
-};
-
 export default LoginBtn;

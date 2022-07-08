@@ -1,6 +1,27 @@
 import React from "react";
 import styled from "styled-components";
 
+const LoginForm = ({ id, pw, onChange }) => {
+  return (
+    <>
+      <LoginInputId
+        value={id}
+        name="id"
+        type="text"
+        placeholder="아이디"
+        onChange={onChange}
+      />
+      <LoginInputPw
+        value={pw}
+        name="pw"
+        type="password"
+        placeholder="비밀번호"
+        onChange={onChange}
+      />
+    </>
+  );
+};
+
 const LoginInputId = styled.input`
   width: 300px;
   height: 45px;
@@ -23,25 +44,5 @@ const LoginInputPw = styled.input`
     height: 30px;
   }
 `;
-const LoginForm = (props) => {
-  return (
-    <>
-      <LoginInputId
-        value={props.id}
-        name="id"
-        type="text"
-        placeholder="아이디"
-        onChange={props.onChange}
-      />
-      <LoginInputPw
-        value={props.pw}
-        name="pw"
-        type="password"
-        placeholder="비밀번호"
-        onChange={props.onChange}
-      />
-    </>
-  );
-};
 
 export default LoginForm;
