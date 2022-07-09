@@ -1,8 +1,6 @@
 import axios from "axios";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import CancelBtn from "../Login/Form/CancelBtn";
-import NavBar from "../NavBar/NavBar";
 import SignUpForm from "./SignUpForm";
 
 const SignUp = () => {
@@ -50,13 +48,13 @@ const SignUp = () => {
     } else if (name === "password") {
       setPassword(value);
       passwordChecker();
-    } else if (name == "passwordRepeat") {
+    } else if (name === "passwordRepeat") {
       setPasswordRepeat(value);
       passwordChecker();
-    } else if (name == "studentNumber") {
+    } else if (name === "studentNumber") {
       setStudentNumber(value);
       handleOnInput(value);
-    } else if (name == "phoneNumber") {
+    } else if (name === "phoneNumber") {
       setPhoneNumber(value);
       autoHypen(value);
     }
@@ -130,7 +128,7 @@ const SignUp = () => {
     }
     setPhoneNumber(result);
   };
-
+  // 고양이 사진 가져오기
   const getImageData = () => {
     axios
       .get("https://api.thecatapi.com/v1/images/search?size=full")
@@ -140,7 +138,6 @@ const SignUp = () => {
       })
       .catch((error) => console.error(error));
   };
-
   // 회원가입(Register) 버튼 클릭
   const register = () => {
     alert("회원가입");
@@ -149,82 +146,26 @@ const SignUp = () => {
     getImageData();
   }, []);
   return (
-    <div>
+    <>
       <WrapperHome>
-        <NavBar></NavBar>
-
-        <SignUpWrapper>
-          <SignUpTitle>Sign up</SignUpTitle>
-
-          <SignUpInput>
-            <img
-              ref={imgRef}
-              alt="cat"
-              width="100"
-              height="100"
-              src="https://blog.kakaocdn.net/dn/bVZmTE/btqBqpJPjfc/bVAXmVZcCH1ffZT96KkT3k/img.jpg"
-            />
-            <SignUpForm
-              idCheck={idCheck}
-              pwCheck={pwCheck}
-              email={email}
-              password={password}
-              studentNumber={studentNumber}
-              major={major}
-              phoneNumber={phoneNumber}
-              onChange={onChange}
-            />
-            <RegisterBtn onClick={register}>Register</RegisterBtn>
-            <CancelBtn>Cancel</CancelBtn>
-          </SignUpInput>
-        </SignUpWrapper>
+        <SignUpForm
+          imgRef={imgRef}
+          onChange={onChange}
+          idCheck={idCheck}
+          pwCheck={pwCheck}
+          studentNumber={studentNumber}
+          major={major}
+          phoneNumber={phoneNumber}
+          register={register}
+        />
       </WrapperHome>
-    </div>
+    </>
   );
 };
 
 const WrapperHome = styled.div`
   display: grid;
   grid-template-rows: 100px 5fr;
-`;
-
-const SignUpWrapper = styled.div`
-  padding: 40px;
-  justify-content: center;
-`;
-const SignUpTitle = styled.h1`
-  text-align: center;
-  padding-bottom: 30px;
-  font-size: 50px;
-  font-weight: 900;
-  @media screen and (max-width: 786px) {
-    font-size: 34px;
-  }
-`;
-const SignUpInput = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  @media screen and (max-width: 786px) {
-    font-size: 34px;
-  }
-`;
-const RegisterBtn = styled.button`
-  width: 300px;
-  height: 50px;
-  font-size: 20px;
-  font-weight: 900;
-  margin-top: 30px;
-  border-radius: 20px 20px 0px 0px;
-  background-color: #864adb;
-  color: aliceblue;
-  border: 0px;
-  @media screen and (max-width: 786px) {
-    font-size: 16px;
-    width: 200px;
-    height: 30px;
-  }
 `;
 
 export default SignUp;
