@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import NavBar from "../NavBar/NavBar";
-import CancelBtn from "./Form/CancelBtn.jsx";
-import LoginBtn from "./Form/LoginBtn";
-import LoginForm from "./Form/LoginForm";
+import CancelBtn from "./CancelBtn";
+import LoginBtn from "./LoginBtn";
+import LoginForm from "./LoginForm";
 
 const LoginPage = ({ imgRef, id, pw, onChange, onLoginBtnClick }) => {
   return (

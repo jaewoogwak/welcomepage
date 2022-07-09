@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import CancelBtn from "../Login/Form/CancelBtn";
+import CancelBtn from "../Login/CancelBtn";
 import NavBar from "../NavBar/NavBar";
 
 const SignUpForm = ({
