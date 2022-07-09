@@ -5,9 +5,9 @@ import SignUp from "./components/SignUp/SignUp";
 import Page404 from "./components/Page404";
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
-        <Route path="/welcomepage" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="*" element={<Page404 />} />
       </Routes>
