@@ -40,7 +40,7 @@ const SignUp = () => {
     }
   };
 
-  const onChange = useCallback((e) => {
+  const onChange = (e) => {
     const { name, value } = e.target;
     if (name === "email") {
       setEmail(value);
@@ -58,7 +58,7 @@ const SignUp = () => {
       setPhoneNumber(value);
       autoHypen(value);
     }
-  }, []);
+  };
 
   // 비밀번호 일치 체커
   const passwordChecker = () => {
@@ -169,3 +169,23 @@ const WrapperHome = styled.div`
 `;
 
 export default SignUp;
+
+// const onChange = useCallback((e) => {
+//   const { name, value } = e.target;
+//   if (name === "email") {
+//     setEmail(value);
+//     EmailFormatChecker(value);
+//   } else if (name === "password") {
+//     setPassword(value);
+//     passwordChecker();
+//   } else if (name === "passwordRepeat") {
+//     setPasswordRepeat(value);
+//     passwordChecker();
+//   } else if (name === "studentNumber") {
+//     setStudentNumber(value);
+//     handleOnInput(value);
+//   } else if (name === "phoneNumber") {
+//     setPhoneNumber(value);
+//     autoHypen(value);
+//   }
+// }, []);
