@@ -1,4 +1,4 @@
-// 쿠키 가져오는 함수
+// 쿠키 가져오는 함수.
 export default function getCookie(name) {
   let matches = document.cookie.match(
     new RegExp(
